@@ -1,0 +1,22 @@
+class Solution {
+    public boolean isSubsequence(String s, String t) {
+        int lastIndex = 0;
+        int foundCounter = 0;
+        for(int i = 0; i < s.length(); i++){
+            for(int j = lastIndex; j < t.length(); j++ ){
+                System.out.println(s.charAt(i)+ " " + t.charAt(j));
+                if(s.charAt(i) == t.charAt(j)){
+                    lastIndex = j + 1;
+                    foundCounter++;
+                    break;
+                }
+            }
+        }
+        if (foundCounter == s.length()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+}
