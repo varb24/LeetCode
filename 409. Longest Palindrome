@@ -1,0 +1,32 @@
+class Solution {
+    public int longestPalindrome(String s) {
+        if(s.length()==1) return 1;
+        if(s.length()==0) return 0;
+        int numOfPairs =0;
+        boolean odd = false;
+        HashMap<Character, Integer> pairs = new HashMap<Character, Integer>();
+        for(int i = 0; i < s.length(); i++ ){
+            if(pairs.containsKey(s.charAt(i))){
+                pairs.replace(s.charAt(i) , pairs.get(s.charAt(i)) + 1);
+            }
+            else{
+                pairs.put(s.charAt(i), 1);
+            }            
+        }
+        List<Integer> values = new ArrayList<>(pairs.values());
+        for(int k: values){
+            if((k&1) == 1){
+                numOfPairs += k -1;
+                odd = true;
+            }
+            else{
+                numOfPairs += k;                
+            }
+        }
+        //for(int k =0; k < pairs.size(); k++){
+          //  numOfPairs = pairs.get(k)/2;
+        //}
+        if(odd) numOfPairs++;
+        return numOfPairs;
+    }
+}
