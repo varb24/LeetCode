@@ -1,0 +1,26 @@
+public class Solution extends VersionControl {
+    public int firstBadVersion(int n) {
+        boolean found = false;
+        long high = n, mid = n/2, low = 1;
+        if(isBadVersion(1)) return 1;
+        while(high != low){
+            System.out.println("mid " + mid + "low " + low + " high " + high);
+            found = isBadVersion((int)mid);
+            if(found != isBadVersion((int)mid+1)) {
+                //System.out.println("Exiting Inside");
+                return (int)mid+1;
+            }
+            if(!found){
+                low = mid+1;
+                mid = (low+high)/2;
+            }
+            else{
+                high = mid -1;
+                mid = (low+high)/2;
+            }
+
+        }
+                    System.out.println("mid " + mid + "low " + low + " high " + high);
+        return (int)mid+1;
+    }
+}
