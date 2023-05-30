@@ -1,0 +1,29 @@
+class Solution {
+    public boolean isHappy(int n) {
+        boolean happy = false;
+        HashSet<Long> happyNumbers = new HashSet<Long>();
+        if(n==1) {return true;}
+        long next = n;
+        long last = 0;
+        while(next!= 1){
+            if(happyNumbers.contains(next)) {return false;}
+            else {happyNumbers.add(next);}
+            next = calculateHappy(next);
+            //System.out.println(next +  " " + last);
+            if (next == last) {return false;}
+            last = next;
+        }
+        return true;
+    }
+    public long calculateHappy(long h){
+        long squared = 0;
+        int digit = 0;
+        while(h > 0){
+            //System.out.println("H : "  +h);
+            digit = Math.toIntExact(h % 10);
+            squared+= digit*digit;
+            h = h / 10;
+        }
+        return squared;
+    }
+}
