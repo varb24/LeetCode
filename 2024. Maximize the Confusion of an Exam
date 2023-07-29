@@ -1,0 +1,33 @@
+class Solution {
+ 
+        int maxConsecutiveAnswers(String answerKey, int k) {
+            int findTrue =findBoth(answerKey, k, 'T');
+            int findFalse = findBoth(answerKey, k, 'F');
+            
+            int finalAnswer = Math.max(findTrue, findFalse);
+
+            return finalAnswer;
+        }
+
+        int findBoth(String answerKey, int k, char trueOrFalse) {
+            int counter = 0;
+            int keySize = answerKey.length();
+            int windowStart = 0, windowEnd = 0;
+            int maxConfusion = 0;
+            while( windowEnd < keySize){
+                if (answerKey.charAt(windowEnd) == trueOrFalse){
+                    counter++;
+                }
+                while( (windowStart < keySize) && (counter > k)){
+                    if (answerKey.charAt(windowStart) == trueOrFalse){ counter--;}
+                    windowStart++;
+                }
+
+                maxConfusion = Math.max(windowEnd - windowStart + 1, maxConfusion);
+                windowEnd++;
+            }
+
+            return maxConfusion;
+
+        }
+};
