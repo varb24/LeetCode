@@ -1,0 +1,45 @@
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int maxSize = 0;
+        int currentSize = 0;
+        char currentChar = '0';
+        int[] singleAscii = new int[128];
+        int firstSeen = 0;
+        String inSet = "";
+
+        if(s.length() ==1){
+            return 1;
+        }
+        for(int i = 0; i < s.length(); i++){
+            currentChar = s.charAt(i);
+            //System.out.println(i + "ith");
+            
+            singleAscii[currentChar]++;
+            inSet += currentChar;
+            //System.out.println(currentChar);
+            if (singleAscii[currentChar] > 1){
+                inSet = "";
+
+                currentSize = 1;
+                firstSeen = s.indexOf(currentChar, firstSeen) + 1;
+                i = firstSeen;
+                //System.out.println("firstSeen " + firstSeen + " current i " + i);
+                if (firstSeen < s.length()){
+                    singleAscii = new int[128];
+                    singleAscii[s.charAt(firstSeen)]++;
+                    inSet += s.charAt(firstSeen);
+                }
+            }
+            else{
+                currentSize++;
+            }
+            
+            maxSize = Math.max(currentSize, maxSize);
+            //System.out.println(currentSize + " set " + inSet );
+            //System.out.println(Arrays.toString(singleAscii));
+        }
+
+
+        return maxSize;
+    }
+}
