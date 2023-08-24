@@ -1,0 +1,64 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        
+        if (lists.length == 0) return null;
+        //Current min stores the current minimum node
+        ListNode currentMin = new ListNode();
+        ListNode mergedList = new ListNode();
+        ListNode mergedHead = mergedList;
+        int minimum = Integer.MAX_VALUE;
+        int saveMinList = -1;
+        boolean allDone = false;
+        int testValue = 0;
+        while(!allDone){
+            allDone = true;
+            for(ListNode l: lists){
+                
+                if(l != null) allDone = false;
+                
+            }
+            for(int i =0; i < lists.length; i ++ ){
+                
+                if(lists[i] == null) continue;
+                //System.out.println("lists " + lists[i]);
+                testValue = lists[i].val;
+      
+                if(testValue < minimum){
+                    minimum = testValue;
+                    saveMinList = i;
+                    mergedList.next =  lists[i];
+                    //System.out.println("current min change " + currentMin);                   
+                }
+                //why does this not save the reference? JAVA DOES NOT ALLOW PASSING BY REFERENCE
+                //(unless through method calls)
+
+ 
+            }
+            if(saveMinList < 0) return null;
+            if(lists[saveMinList] != null) lists[saveMinList] = lists[saveMinList].next;
+
+            System.out.println(minimum);
+            //System.out.println(currentMin);
+            minimum = Integer.MAX_VALUE;
+            mergedList = mergedList.next;
+        }
+        
+        ListNode tempNode = mergedHead;
+        /*for(int j = 0; j < 10; j++){
+            if(tempNode == null) break;           
+            System.out.println("value" + tempNode.val);
+            tempNode = tempNode.next;
+        }*/
+        return mergedHead.next;
+    }   
+}
