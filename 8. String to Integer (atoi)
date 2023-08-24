@@ -1,0 +1,55 @@
+class Solution {
+    public int myAtoi(String s) {
+        char current;
+        final int max = Integer.MAX_VALUE;
+        long number = 0;
+        long currentNumber = 0;
+        int negativeFlag = 1;
+        int seenNumFlag = -1;
+        int indexOfFirst = indexFirst(s);
+        
+        if(s.length() ==0) return 0;
+        if(s.charAt(indexOfFirst) == '-' || s.charAt(indexOfFirst) == '+') {
+            if(s.charAt(indexOfFirst) == '-'){
+            negativeFlag = -1;
+            }
+            indexOfFirst++;
+        }
+        
+        for(int i = indexOfFirst; i < s.length(); i++){
+            current = s.charAt(i);
+            if(current =='.') return (int)number*negativeFlag;
+            if(!Character.isDigit(current)) return (int)number*negativeFlag;
+     
+            System.out.println(current);
+            if(true){
+
+                currentNumber = Character.getNumericValue(current);
+                
+                if(number != 0) {
+                    number*=10;
+                    number+= currentNumber;
+                }
+                else {number = currentNumber;}
+
+                if(number > max) {     
+                    if(negativeFlag == -1) return (int)(negativeFlag*max-1);             
+                    
+                    return (int)(max*negativeFlag); 
+                    
+                } 
+            }
+            System.out.println(number*negativeFlag);
+        }       
+        return (int)number*negativeFlag;
+    }
+    //Finds the first relevant index (has - or 1~9)
+    public int indexFirst(String s){
+        for(int i = 0; i < s.length(); i++){
+            char current = s.charAt(i);
+            //System.out.println(!Character.isLetterOrDigit(current));
+            if(current == '-' || current == '+' || current == '.' || Character.isLetterOrDigit(current)) return i;
+        }
+        return 0;
+    }
+}
