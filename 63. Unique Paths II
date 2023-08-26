@@ -1,0 +1,62 @@
+class Solution {
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        //Starts at the end
+        int numOfPaths = 1;
+
+        if(obstacleGrid.length == 1){
+            for(int i = 0; i < obstacleGrid[0].length; i++){
+                if (obstacleGrid[0][i] == 1) return 0;
+            }
+        }
+        else if(obstacleGrid[0].length ==1){
+            for(int k = 0; k < obstacleGrid.length; k++){
+                if(obstacleGrid[k][0]==1) return 0;
+            }
+        }
+        else{
+            numOfPaths = checkNext(obstacleGrid, obstacleGrid.length - 1, obstacleGrid[0].length -1);
+        }
+        return numOfPaths;
+    }
+    public int checkNext(int[][] obstacleGrid, int m, int n){
+        //The two halting states
+        //Checks if path end has been reached
+        //System.out.println("Counting at| m: " + m + " n: " +n );
+        //System.out.println(obstacleGrid[m][n]);
+        if(m < 0 || n < 0) return 0;
+
+        if(obstacleGrid[m][n]==1) return 0;
+        if(m ==0 && n==0){
+
+            //System.out.println("Adding at " + m + " " +n );    
+            return 1;
+        }
+
+
+        //Checks if both paths are blocked
+        if(m<1){
+            //System.out.println(obstacleGrid[m][n-1]==1);
+            if(obstacleGrid[m][n-1]==1) {return 0;}
+            else {
+                return checkNext(obstacleGrid, m, n-1);
+            }
+        }
+        if(n<1){
+            //System.out.println(obstacleGrid[m-1][n]==1);
+            if(obstacleGrid[m-1][n]==1) {return 0;}
+            else {
+                return checkNext(obstacleGrid, m-1, n);
+            }
+        }
+        if(obstacleGrid[m][n]==1) { return 0; };
+        if((obstacleGrid[m-1][n]==1) && (obstacleGrid[m][n-1]==1)) { return 0; }
+        //Case where both are traversable, add both
+        if(obstacleGrid[m-1][n]==0 && (obstacleGrid[m][n-1]==0)) return checkNext(obstacleGrid, m-1, n)+checkNext(obstacleGrid, m, n-1);
+        //Cases where only one is traversalble
+        if(obstacleGrid[m-1][n]==0 && (obstacleGrid[m][n-1]==1)) return checkNext(obstacleGrid, m-1, n);
+        if(obstacleGrid[m-1][n]==1 && (obstacleGrid[m][n-1]==0)) return checkNext(obstacleGrid, m, n-1);
+
+        return 0;
+    }
+    
+}
