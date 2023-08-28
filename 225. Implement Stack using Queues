@@ -1,0 +1,57 @@
+#include <stdbool.h>
+
+typedef struct {
+    int myStack[100];
+    int lastIn;    
+} MyStack;
+
+
+MyStack* myStackCreate() {
+    MyStack* stack = (MyStack*)malloc(sizeof(MyStack));
+    stack->lastIn = 0;
+    return stack;
+}
+
+bool myStackEmpty(MyStack* obj) {
+    if(obj->lastIn <= 0) return true;
+    else return false;
+}
+
+void myStackPush(MyStack* obj, int x) {
+    obj->lastIn++;
+    obj->myStack[obj->lastIn] = x;
+
+}
+
+int myStackPop(MyStack* obj) {
+    if(myStackEmpty(obj)) return -1;
+    //printf("%d %d", obj->myStack[obj->lastIn], obj->lastIn);
+    int temp = obj->myStack[obj->lastIn];
+    obj->lastIn--;
+    return temp;
+}
+
+int myStackTop(MyStack* obj) {
+    if(myStackEmpty(obj)) return -1;
+    return obj->myStack[obj->lastIn];
+}
+
+
+
+void myStackFree(MyStack* obj) {
+    free(obj);
+}
+
+/**
+ * Your MyStack struct will be instantiated and called as such:
+ * MyStack* obj = myStackCreate();
+ * myStackPush(obj, x);
+ 
+ * int param_2 = myStackPop(obj);
+ 
+ * int param_3 = myStackTop(obj);
+ 
+ * bool param_4 = myStackEmpty(obj);
+ 
+ * myStackFree(obj);
+*/
