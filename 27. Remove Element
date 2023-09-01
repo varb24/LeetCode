@@ -1,0 +1,35 @@
+class Solution {
+    public int removeElement(int[] nums, int val) {
+        Stack removeIndeces;
+        int temp;
+        int size = nums.length-1;
+        int count = 0;
+        if(nums.length == 0) return 0;
+        if(nums.length == 1) {
+            if(nums[0]==val) {
+                nums[0] = val-1;
+                return 0;
+            }
+            else return 1;
+        }
+        for(int i = 0; i <= size; i++){
+            if (nums[i] == val){
+                //Checks if the last spot also needs to be replaced
+                while((nums[size - count] == val) && (size-count)!= i){
+                    nums[size - count] = val-1;
+                    count++;
+                }
+                if(((size) == 0)|| size- count < 0) return nums.length - count;
+                temp = nums[size - count];
+                nums[i] = nums[size - count];
+                nums[size - count] = temp;
+                count++;
+                System.out.println(i+ " " + count);
+                System.out.println(Arrays.toString(nums));
+            }
+        }
+
+        System.out.println(Arrays.toString(nums) + " " + count);
+        return nums.length - count;
+    }
+}
